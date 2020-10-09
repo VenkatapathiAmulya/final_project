@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { DataService } from '../data.service';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -27,11 +27,10 @@ export class HomepageComponent implements OnInit {
     labels:[]
 };
 
-  constructor(private http: HttpClient) { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:3000/budget")
-    .subscribe((res: any) => {
+    this.dataService.getData().subscribe((res: any) => {
       console.log(res);
       for ( var i = 0 ; i < res.myBudget.length; i++) {
           this.dataSource.datasets[0].data[i] = res.myBudget[i].budget;

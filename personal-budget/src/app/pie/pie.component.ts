@@ -30,20 +30,6 @@ export class PieComponent implements OnInit {
         this.drawChart();
      });
 
-   console.log("****************",this.dataService.data);
-
-    // this.http.get("http://localhost:3000/budget")
-    // .subscribe((res: any) => {
-    //   console.log(res);
-    //   this.data = res.myBudget;
-    //   console.log(this.data);
-    //   this.createSvg();
-    //   this.createColors();
-    //   this.drawChart();
-
-    // })
-    // ;
-
   }
 
   private createSvg(): void {

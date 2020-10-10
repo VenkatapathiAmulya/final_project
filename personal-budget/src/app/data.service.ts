@@ -10,7 +10,7 @@ import { shareReplay, takeUntil } from 'rxjs/operators';
 export class DataService {
   myDataObservable: Observable<any>;
 
-  public data: any;
+  // public data: any;
   constructor(private http: HttpClient)  {
   }
   getData(): Observable<any> {

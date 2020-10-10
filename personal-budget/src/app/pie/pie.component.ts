@@ -22,14 +22,14 @@ export class PieComponent implements OnInit {
 
 
   ngOnInit(): void {
-      this.dataService.getVariable().subscribe((res: any) => {
+      this.dataService.getData().subscribe((res: any) => {
         console.log(res);
         this.data= res.myBudget;
-       // this.dataService.data= this.data;
       this.createSvg();
         this.createColors();
         this.drawChart();
      });
+
    console.log("****************",this.dataService.data);
 
     // this.http.get("http://localhost:3000/budget")

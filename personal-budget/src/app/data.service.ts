@@ -1,30 +1,24 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { shareReplay, takeUntil } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  myDataObservable: Observable<any>;
+
   public data: any;
-  constructor(public http: HttpClient)  {
+  constructor(private http: HttpClient)  {
   }
-  getData(): any{
-   return this.http.get('http://localhost:3000/budget');
-  }
-  setVariable(){
-    this.getData().subscribe((res: any) => {
-      this.data = res;
-      console.log(res);
-      return this.data;
-   });
-  }
-  getVariable(){
-    if(this.data){
-      return this.data;
-    }else{
-        this.setVariable();
-       // return this.data;
+  getData(): Observable<any> {
+    if (this.myDataObservable) {
+      return this.myDataObservable;
+    } else {
+      this.myDataObservable = this.http.get('http://localhost:3000/budget').pipe(shareReplay());
+      return this.myDataObservable;
     }
   }
 }

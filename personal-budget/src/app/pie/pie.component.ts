@@ -24,7 +24,7 @@ export class PieComponent implements OnInit {
   ngOnInit(): void {
       this.dataService.getData().subscribe((res: any) => {
         console.log(res);
-        this.data= res.myBudget;
+        this.data= res;
       this.createSvg();
         this.createColors();
         this.drawChart();
@@ -46,7 +46,8 @@ export class PieComponent implements OnInit {
 private createColors(): void {
   this.colors = d3.scaleOrdinal()
   .domain(this.data.map(d => d.budget.toString()))
-  .range(["#ffcd56", "#ff6384", "#36a2eb", "#fd6b19", "#fdfd19","#189c40","#04350c","#652e7a"]);
+  //.range(["#ffcd56", "#ff6384", "#36a2eb", "#fd6b19", "#fdfd19","#189c40","#04350c","#652e7a"]);
+  .range(this.data.map(d => d.color.toString()));
 }
 private drawChart(): void {
   // Compute the position of each group on the pie:

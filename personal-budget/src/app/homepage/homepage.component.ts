@@ -12,16 +12,7 @@ export class HomepageComponent implements OnInit {
     datasets: [
         {
             data: [],
-            backgroundColor:[
-                '#ffcd56',
-                '#ff6384',
-                '#36a2eb',
-                '#fd6b19',
-                '#fdfd19',
-                '#189c40',
-                '#04350c',
-                '#652e7a',
-            ],
+            backgroundColor:[],
         }
     ],
     labels:[]
@@ -32,9 +23,10 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.getData().subscribe((res: any) => {
       console.log(res);
-      for ( var i = 0 ; i < res.myBudget.length; i++) {
-          this.dataSource.datasets[0].data[i] = res.myBudget[i].budget;
-          this.dataSource.labels[i] = res.myBudget[i].title;
+      for ( var i = 0 ; i < res.length; i++) {
+          this.dataSource.datasets[0].data[i] = res[i].budget;
+          this.dataSource.labels[i] = res[i].title;
+          this.dataSource.datasets[0].backgroundColor[i] = res[i].color;
           this.createChart();
       }
     })

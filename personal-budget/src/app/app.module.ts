@@ -22,7 +22,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddEditDataComponent } from './add-edit-data/add-edit-data.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { ReactiveFormsModule } from '@angular/forms'
     P404Component,
     BreadcrumbsComponent,
     ContactComponent,
-    PieComponent
+    PieComponent,
+    RegisterComponent,
+    DashboardComponent,
+    AddEditDataComponent,
   ],
   imports: [
     BrowserModule,

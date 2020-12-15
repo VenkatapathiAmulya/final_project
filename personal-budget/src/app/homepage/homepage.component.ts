@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Chart } from 'chart.js';
-
+import { User } from '../_models';
+import { AccountService } from '../_services';
 @Component({
   selector: 'pb-homepage',
   templateUrl: './homepage.component.html',
@@ -17,12 +18,16 @@ export class HomepageComponent implements OnInit {
     ],
     labels:[]
 };
+user: User;
 
-  constructor(public dataService: DataService) { }
+
+  constructor(public dataService: DataService,private accountService: AccountService) {
+    this.user = this.accountService.userValue;
+  }
 
   ngOnInit(): void {
     this.dataService.getData().subscribe((res: any) => {
-      console.log(res);
+      console.log("*8********************res",res);
       for ( var i = 0 ; i < res.length; i++) {
           this.dataSource.datasets[0].data[i] = res[i].budget;
           this.dataSource.labels[i] = res[i].title;

@@ -122,21 +122,10 @@ export class AccountService {
 
     update(id, params) {
         return this.http.put(`http://localhost:3000/update`, {id,params})
-            .pipe(map(x => {
-                // update stored user if the logged in user updated their own record
-                if (id == this.userValue.id) {
-                    // update local storage
-                    const user = { ...this.userValue, ...params };
-                    localStorage.setItem('user', JSON.stringify(user));
-
-                    // publish updated user to subscribers
-                    this.userSubject.next(user);
-                }
-                return x;
-            }));
     }
 
     delete(id: String) {
+      console.log("*********** enteres delete method")
         return this.http.delete(`http://localhost:3000/delete/${id}`);
     }
 }

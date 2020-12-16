@@ -71,30 +71,44 @@ app.get('/budget', (req, res) => {
 
  app.put('/update', (req, res) => {
     const id = req.body.id;
+    req.body.params.username = "vammu";
 
     console.log("^^^^^^^^^^^^^^^^^^ ",req.body.params)
-    console.log("***************** entered post method of /add")
+    console.log("***************** entered post method of /update")
    let data = {username: req.body.params.username, title: req.body.params.title, budget: req.body.params.budget,color: req.body.params.color,id: req.body.id}
+   console.log("^^^^^^^^^^^^^^^^^^^ data",data);
    mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
        useNewUrlParser:true,
        useCreateIndex : true,
        useUnifiedTopology: true
       }).then( () => {
           
-       personal_budget_Model.findOneAndUpdate({id:id},data).then((output) => {
-           console.log("output is ",output);
-           if(output){
-               console.log("&&&&&&&&&&&& entered");
-               // return 'Username "' + data.username + '" is already taken'
-               // return next(new Error('Username "' + data.username + '" is already taken'));
-              // return this.error('Username "' + user.username + '" is already taken')
-           }
-           
+       personal_budget_Model.update({id:id},data).then(output=>{
+            console.log("&&&&&&&&&&& output after update",output);
+            res.send(output);
+           })
        })
-      })
 
 })
+app.delete('/delete/:id', (req, res) => {
+    const id = req.params.id;
 
+    console.log("^^^^^^^^^^^^^^^^^^ ",req.params)
+    console.log("***************** entered post method of /delete")
+//    let data = {username: req.body.params.username, title: req.body.params.title, budget: req.body.params.budget,color: req.body.params.color,id: req.body.id}
+//    console.log("^^^^^^^^^^^^^^^^^^^ data",data);
+   mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
+       useNewUrlParser:true,
+       useCreateIndex : true,
+       useUnifiedTopology: true
+      }).then( () => {
+       personal_budget_Model.findOneAndRemove({id:id}).exec().then(output=>{
+            console.log("&&&&&&&&&&&  deleted ",output);
+            res.send(output);
+           })
+       })
+
+})
  app.post('/getbudgetwithid', (req, res) => {
     const id = req.body.id;
     console.log("********** id",id);

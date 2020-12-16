@@ -78,7 +78,7 @@ export class AddEditDataComponent implements OnInit {
           .subscribe({
               next: () => {
                   this.alertService.success('Data added successfully', { keepAfterRouteChange: true });
-                  this.router.navigate(['../dashboard'], { relativeTo: this.route });
+                  this.router.navigate(['../'], { relativeTo: this.route });
               },
               error: error => {
                   this.alertService.error(error);

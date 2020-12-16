@@ -116,11 +116,12 @@ export class AccountService {
 
 
     getById(id: String) {
+      console.log("************ entered getbyid",id);
         return this.http.post<UserBudget>(`http://localhost:3000/getbudgetwithid`,{id});
     }
 
     update(id, params) {
-        return this.http.put(`${environment.apiUrl}/users/${id}`, params)
+        return this.http.put(`http://localhost:3000/update`, {id,params})
             .pipe(map(x => {
                 // update stored user if the logged in user updated their own record
                 if (id == this.userValue.id) {

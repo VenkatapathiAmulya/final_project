@@ -8,9 +8,7 @@ import { ContactComponent } from './contact/contact.component';
 import { RegisterComponent } from './register/register.component';
 
 import { AuthGuard } from './_helpers';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AddEditDataComponent } from './add-edit-data/add-edit-data.component';
- const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
+ const dashboardsModule = () => import('./dashboards/dashboards.module').then(x => x.DashboardsModule);
 const routes: Routes = [
   {
     path: '',
@@ -20,10 +18,6 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomepageComponent,
-  },
-  {
-    path:'dashboard',
-    component: DashboardComponent,
   },
   {
     path: 'about',
@@ -41,19 +35,12 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent
   },
-  {
-    path:'add',
-    component: AddEditDataComponent
-  },
-  {
-    path:'edit',
-    component: AddEditDataComponent
-  },
+  { path: 'dashboards', loadChildren: dashboardsModule },
   {
     path: '**',
     component: P404Component
   },
-  // { path: 'users', loadChildren: usersModule},
+
   // { path: '', component: HomepageComponent, canActivate: [AuthGuard] },
 
 

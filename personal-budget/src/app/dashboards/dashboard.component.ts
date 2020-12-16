@@ -7,8 +7,7 @@ import { AccountService } from '../_services';
 
 @Component({
   selector: 'pb-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
   public dataSource =  {
@@ -44,6 +43,8 @@ ngOnInit(): void {
   })
   ;
 }
+
+
 
 createChart() {
   var ctx = document.getElementById('myChart');

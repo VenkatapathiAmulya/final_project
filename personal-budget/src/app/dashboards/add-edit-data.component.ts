@@ -7,8 +7,7 @@ import { AccountService, AlertService } from '../_services';
 
 @Component({
   selector: 'pb-add-edit-data',
-  templateUrl: './add-edit-data.component.html',
-  styleUrls: ['./add-edit-data.component.scss']
+  templateUrl: './add-edit-data.component.html'
 })
 export class AddEditDataComponent implements OnInit {
   form: FormGroup;

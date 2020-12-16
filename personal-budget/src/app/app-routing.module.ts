@@ -10,7 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './_helpers';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddEditDataComponent } from './add-edit-data/add-edit-data.component';
-// const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
+ const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
 const routes: Routes = [
   {
     path: '',
@@ -46,9 +46,14 @@ const routes: Routes = [
     component: AddEditDataComponent
   },
   {
+    path:'edit',
+    component: AddEditDataComponent
+  },
+  {
     path: '**',
     component: P404Component
   },
+  // { path: 'users', loadChildren: usersModule},
   // { path: '', component: HomepageComponent, canActivate: [AuthGuard] },
 
 

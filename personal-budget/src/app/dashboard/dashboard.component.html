@@ -4,7 +4,13 @@
       <div class="_inline-block" >
            <!-- A11y standard.Here we generally use few links for easy accessibility-->
       <h1><a name="maincontent" id="maincontent"></a></h1>
-
+      <pb-breadcrumbs>
+        <h1>All views are available</h1>
+        <slot-two>
+          Chart js, D3 js views
+          </slot-two>
+      </pb-breadcrumbs>
+<article>
 
 
 <a routerLink="/add" class="btn btn-sm btn-success mb-2">Add data</a>
@@ -23,8 +29,8 @@
             <td>{{userbudgetdata.budget}}</td>
             <td>{{userbudgetdata.color}}</td>
             <td style="white-space: nowrap">
-                <a routerLink="/add" class="btn btn-sm btn-primary mr-1">Edit</a>
-                <button (click)="deleteData(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="userbudgetdata.isDeleting">
+                <a routerLink="/edit" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteData(userbudgetdata.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="userbudgetdata.isDeleting">
                     <span *ngIf="userbudgetdata.isDeleting" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!userbudgetdata.isDeleting">Delete</span>
                 </button>
@@ -44,13 +50,7 @@
 
 
 
-      <pb-breadcrumbs>
-        <h1>All views are available</h1>
-        <slot-two>
-          Chart js, D3 js views
-          </slot-two>
-      </pb-breadcrumbs>
-<article>
+
   <h1>
     <p>
       <canvas id="myChart" width="400" height="400"></canvas>

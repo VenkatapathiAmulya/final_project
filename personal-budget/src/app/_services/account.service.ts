@@ -86,7 +86,7 @@ export class AccountService {
     }
 
     add(userbudget:UserBudget){
-      console.log("********* entered add method")
+      console.log("********* entered add method",userbudget)
       return this.http.post(`http://localhost:3000/add`, userbudget);
 
     }
@@ -115,8 +115,8 @@ export class AccountService {
     }
 
 
-    getById(id: string) {
-        return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
+    getById(id: String) {
+        return this.http.post<UserBudget>(`http://localhost:3000/getbudgetwithid`,{id});
     }
 
     update(id, params) {
@@ -135,7 +135,7 @@ export class AccountService {
             }));
     }
 
-    delete(id: Number) {
+    delete(id: String) {
         return this.http.delete(`http://localhost:3000/delete/${id}`);
     }
 }

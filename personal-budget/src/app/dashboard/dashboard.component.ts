@@ -53,7 +53,7 @@ createChart() {
   });
 }
 
-deleteData(id: Number) {
+deleteData(id: String) {
   const userbudgetdata = this.usersbudgetdata.find(x => x.id === id);
   userbudgetdata.isDeleting = true;
   this.accountService.delete(id)

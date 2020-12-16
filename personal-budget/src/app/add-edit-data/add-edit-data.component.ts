@@ -12,7 +12,7 @@ import { AccountService, AlertService } from '../_services';
 })
 export class AddEditDataComponent implements OnInit {
   form: FormGroup;
-    id: string;
+    id: String;
     isAddMode: boolean;
     loading = false;
     submitted = false;
@@ -28,6 +28,7 @@ export class AddEditDataComponent implements OnInit {
 
     ngOnInit() {
       this.id = this.route.snapshot.params['id'];
+      console.log("&&&&&&&&&&&&&&&&&& this.id",this.id);
       this.isAddMode = !this.id;
 
       // password not required in edit mode
@@ -37,10 +38,9 @@ export class AddEditDataComponent implements OnInit {
       }
 
       this.form = this.formBuilder.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
-          username: ['', Validators.required],
-          password: ['', passwordValidators]
+          title: ['', Validators.required],
+          budget: ['', Validators.required],
+          color: ['', Validators.required]
       });
 
       if (!this.isAddMode) {
@@ -66,6 +66,7 @@ export class AddEditDataComponent implements OnInit {
 
       this.loading = true;
       if (this.isAddMode) {
+        console.log("*************** form data ",this.form.value);
           this.addData();
       } else {
           this.updateData();
@@ -78,7 +79,7 @@ export class AddEditDataComponent implements OnInit {
           .subscribe({
               next: () => {
                   this.alertService.success('Data added successfully', { keepAfterRouteChange: true });
-                  this.router.navigate(['../'], { relativeTo: this.route });
+                  this.router.navigate(['../dashboard'], { relativeTo: this.route });
               },
               error: error => {
                   this.alertService.error(error);

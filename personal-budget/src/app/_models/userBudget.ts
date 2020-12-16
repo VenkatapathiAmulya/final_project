@@ -1,5 +1,5 @@
 export class UserBudget {
-  id: Number;
+  id: string;
   username: string;
   title: string;
   budget: string;

@@ -69,7 +69,21 @@ app.get('/budget', (req, res) => {
     })
  });
 
- 
+ app.post('/getbudgetwithid', (req, res) => {
+    const id = req.body.id;
+    console.log("********** id",id);
+    mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
+     useNewUrlParser:true,
+     useCreateIndex : true,
+     useUnifiedTopology: true
+    }).then(() => {
+        personal_budget_Model.find({id:id}).then((output) => {
+            console.log("output is ",output);
+            res.send(output);
+            mongoose.connection.close();
+        })
+    })
+ });
 app.get('/user', (req, res) => {
     mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
      useNewUrlParser:true,

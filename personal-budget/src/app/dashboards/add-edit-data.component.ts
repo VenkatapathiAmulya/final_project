@@ -73,7 +73,8 @@ export class AddEditDataComponent implements OnInit {
   }
 
   private addData() {
-      this.accountService.add(this.form.value)
+    const username = localStorage.getItem('user');
+      this.accountService.add(this.form.value,username)
           .pipe(first())
           .subscribe({
               next: () => {
@@ -88,7 +89,8 @@ export class AddEditDataComponent implements OnInit {
   }
 
   private updateData() {
-      this.accountService.update(this.id, this.form.value)
+    const username = localStorage.getItem('user');
+      this.accountService.update(this.id, this.form.value,username)
           .pipe(first())
           .subscribe({
               next: () => {

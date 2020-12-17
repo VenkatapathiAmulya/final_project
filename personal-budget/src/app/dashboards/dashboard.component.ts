@@ -37,12 +37,10 @@ constructor(public dataService: DataService,
 
 ngOnInit(): void {
 
-  this.accountService.getAll()
+  const username = localStorage.getItem('user');
+  this.accountService.getAll(username)
   .pipe(first())
-  .subscribe(usersbudgetdata => this.usersbudgetdata = usersbudgetdata);
-
-
-  this.dataService.getData().subscribe((res: any) => {
+  .subscribe(res =>{ this.usersbudgetdata = res;
     console.log("*********************res",res);
     for ( var i = 0 ; i < res.length; i++) {
         this.dataSource.datasets[0].data[i] = res[i].budget;
@@ -56,8 +54,26 @@ ngOnInit(): void {
     this.createSvg();
       this.createColors();
       this.drawChart();
-  })
-  ;
+
+  });
+
+
+  // this.dataService.getData().subscribe((res: any) => {
+  //   console.log("*********************res",res);
+  //   for ( var i = 0 ; i < res.length; i++) {
+  //       this.dataSource.datasets[0].data[i] = res[i].budget;
+  //       this.dataSource.labels[i] = res[i].title;
+  //       this.dataSource.datasets[0].backgroundColor[i] = res[i].color;
+  //       this.createChart();
+  //       this.barchartfunction();
+
+  //   }
+  //   this.data= res;
+  //   this.createSvg();
+  //     this.createColors();
+  //     this.drawChart();
+  // })
+  // ;
 }
 
 

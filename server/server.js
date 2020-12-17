@@ -4,26 +4,26 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// const path = require('path');
-// const jwt = require('jsonwebtoken');
-// const exjwt = require('express-jwt');
+const path = require('path');
+const jwt = require('jsonwebtoken');
+const exjwt = require('express-jwt');
 
-// app.use((req,res,next)=>{
-//     res.setHeader('Access-Control-Allow-Origin','http://localhost:3000');
-//     res.setHeader('Access-Control-Allow-Headers','Content-type,Authorization');
-//     next();
-// });
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin','http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Headers','Content-type,Authorization');
+    next();
+});
 
 
 
 
 const port = 3000;
 
-// const secretKey = 'My super secret key';
-// const jwtMW = exjwt({
-//     secret:secretKey,
-//     algorithms: ['HS256']
-// });
+const secretKey = 'My super secret key';
+const jwtMW = exjwt({
+    secret:secretKey,
+    algorithms: ['HS256']
+});
 // let users = [
 //     {
 //         id: 1,
@@ -55,13 +55,14 @@ app.use(cors());
 //     res.send(budget);
 // });
 
-app.get('/budget', (req, res) => {
+app.post('/getbudgetwithuser', (req, res) => {
+    console.log("************ entered getbudgetwithuser method",req.body.username)
     mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
      useNewUrlParser:true,
      useCreateIndex : true,
      useUnifiedTopology: true
     }).then(() => {
-        personal_budget_Model.find({}).then((output) => {
+        personal_budget_Model.find({username:req.body.username}).then((output) => {
             console.log("output is ",output);
             res.send(output);
             mongoose.connection.close();
@@ -71,8 +72,6 @@ app.get('/budget', (req, res) => {
 
  app.put('/update', (req, res) => {
     const id = req.body.id;
-    req.body.params.username = "vammu";
-
     console.log("^^^^^^^^^^^^^^^^^^ ",req.body.params)
     console.log("***************** entered post method of /update")
    let data = {username: req.body.params.username, title: req.body.params.title, budget: req.body.params.budget,color: req.body.params.color,id: req.body.id}
@@ -183,7 +182,7 @@ app.get('/user', (req, res) => {
        })
 
 })
-app.post('/add', (req, res) => {
+app.post('/add', jwtMW,(req, res) => {
     let userbudgetdata;
     console.log("***************** entered post method of /add")
    let data = {username: req.body.username, title: req.body.title, budget: req.body.budget,color: req.body.color,id: req.body.id}
@@ -231,7 +230,7 @@ app.post('/add', (req, res) => {
 })
 
 app.post('/login',(req,res)=>{
-    
+    let foundUser = false;
     const username = req.body.username;
     const password = req.body.password;
 
@@ -242,12 +241,40 @@ app.post('/login',(req,res)=>{
        }).then(() => {
            users.find({username:username,password:password}).then((output) => {
                console.log("output is ********************",output);
-               res.send(output);
+               let token = jwt.sign({id:output.id,username:output.username},secretKey,{expiresIn: 120});
+            foundUser = true;
+            res.json({
+                success: true,
+                err:null,
+                user:username,
+                token
+            });
+            //    res.send(output);
                mongoose.connection.close();
            })
+        //    if (!foundUser) {
+        //     res.status(401).json({
+        //         success:false,
+        //         token:null,
+        //         err: 'Username or Password is incorrect'
+        //     });
+        // } 
        }) 
 
 })
+
+app.use(function (err,req,res,next){
+    if (err.name === 'UnauthorizedError') {
+        res.status(401).json({
+            success: false,
+            officialError: err,
+            err:'Username or password is incorrect 2'
+        });
+    }
+    else {
+        next(err);
+    }
+});
 
 
  app.post('/budget', (req, res) => {

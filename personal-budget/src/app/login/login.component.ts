@@ -74,7 +74,15 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(data =>{
               console.log("^^^^^^^^^^^^^ data ",data);
-              this.router.navigate(['/home']);
+              if (data && data.success) {
+                const token = data.token;
+                localStorage.setItem('user',data.user)
+                localStorage.setItem('jwt',token);
+                console.log("$$$$$$$$$$$$$$$ token",token);
+                this.router.navigate(['/home']);
+                //  getDashboard();
+             }
+
                 // next: () => {
                 //     // get return url from query parameters or default to home page
                 //     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';

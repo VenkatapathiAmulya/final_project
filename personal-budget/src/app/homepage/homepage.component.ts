@@ -22,7 +22,7 @@ user: User;
 
 
   constructor(public dataService: DataService,private accountService: AccountService) {
-    this.user = this.accountService.userValue;
+    // this.user = this.accountService.userValue;
   }
 
   ngOnInit(): void {

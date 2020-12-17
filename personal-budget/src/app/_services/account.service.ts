@@ -19,8 +19,8 @@ export class AccountService {
         private router: Router,
         private http: HttpClient
     ) {
-        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-        this.user = this.userSubject.asObservable();
+        // this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+        // this.user = this.userSubject.asObservable();
     }
 
     public get userValue(): User {
@@ -59,9 +59,10 @@ export class AccountService {
 
 
     logout() {
+      console.log("*********** entered logout button")
         // remove user from local storage and set current user to null
         localStorage.removeItem('user');
-        this.userSubject.next(null);
+        // this.userSubject.next(null);
         this.router.navigate(['/login']);
     }
 
@@ -85,9 +86,16 @@ export class AccountService {
 
     }
 
-    add(userbudget:UserBudget){
+    add(userbudget:UserBudget,username: string){
+      userbudget.username=username;
       console.log("********* entered add method",userbudget)
-      return this.http.post(`http://localhost:3000/add`, userbudget);
+      const token = localStorage.getItem('jwt');
+
+      return this.http.post(`http://localhost:3000/add`, userbudget,{
+      headers: {
+        'Authorization': `Bearer ${token}`
+    }}
+      );
 
     }
 
@@ -110,8 +118,10 @@ export class AccountService {
       return this.http.post<any>(`http://localhost:3000/user`,user);
     }
 
-    getAll() {
-        return this.http.get<UserBudget[]>(`http://localhost:3000/budget`);
+
+    getAll(username:string) {
+      console.log("********** entered getall method",username)
+        return this.http.post<UserBudget[]>(`http://localhost:3000/getbudgetwithuser`,{username});
     }
 
 
@@ -120,7 +130,8 @@ export class AccountService {
         return this.http.post<UserBudget>(`http://localhost:3000/getbudgetwithid`,{id});
     }
 
-    update(id, params) {
+    update(id, params,username) {
+      params.username = username;
         return this.http.put(`http://localhost:3000/update`, {id,params})
     }
 

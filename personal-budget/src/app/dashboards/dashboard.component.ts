@@ -57,23 +57,6 @@ ngOnInit(): void {
 
   });
 
-
-  // this.dataService.getData().subscribe((res: any) => {
-  //   console.log("*********************res",res);
-  //   for ( var i = 0 ; i < res.length; i++) {
-  //       this.dataSource.datasets[0].data[i] = res[i].budget;
-  //       this.dataSource.labels[i] = res[i].title;
-  //       this.dataSource.datasets[0].backgroundColor[i] = res[i].color;
-  //       this.createChart();
-  //       this.barchartfunction();
-
-  //   }
-  //   this.data= res;
-  //   this.createSvg();
-  //     this.createColors();
-  //     this.drawChart();
-  // })
-  // ;
 }
 
 
@@ -91,7 +74,9 @@ deleteData(id: String) {
   userbudgetdata.isDeleting = true;
   this.accountService.delete(id)
       .pipe(first())
-      .subscribe(() => this.usersbudgetdata = this.usersbudgetdata.filter(x => x.id !== id));
+      .subscribe(() => {this.usersbudgetdata = this.usersbudgetdata.filter(x => x.id !== id);
+        window.location.reload();
+      });
 }
 
 

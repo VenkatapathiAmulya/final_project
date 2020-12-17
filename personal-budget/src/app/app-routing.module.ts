@@ -35,14 +35,11 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent
   },
-  { path: 'dashboards', loadChildren: dashboardsModule },
+  { path: 'dashboards', loadChildren: dashboardsModule},
   {
     path: '**',
     component: P404Component
   },
-
-  // { path: '', component: HomepageComponent, canActivate: [AuthGuard] },
-
 
 ];
 

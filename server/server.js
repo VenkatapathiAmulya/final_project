@@ -24,19 +24,6 @@ const jwtMW = exjwt({
     secret:secretKey,
     algorithms: ['HS256']
 });
-// let users = [
-//     {
-//         id: 1,
-//         username: 'amulya',
-//         password: '123'
-//     },
-//     {
-//         id:2,
-//         username:'venkatapathi',
-//         password: '456' 
-//     }   
-// ];
-
 const mongoose = require('mongoose');
 const personal_budget_Model = require('./models/personal_Budget');
 const users = require('./models/users');
@@ -48,14 +35,7 @@ app.use('/',express.static('public'));
 
 app.use(cors());
 
-//var budget = require('./budget.json');
-
-
-// app.get('/budget',(req,res) => {
-//     res.send(budget);
-// });
-
-app.post('/getbudgetwithuser', (req, res) => {
+app.post('/getbudgetwithuser',jwtMW, (req, res) => {
     console.log("************ entered getbudgetwithuser method",req.body.username)
     mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
      useNewUrlParser:true,
@@ -70,7 +50,7 @@ app.post('/getbudgetwithuser', (req, res) => {
     })
  });
 
- app.put('/update', (req, res) => {
+ app.put('/update',jwtMW, (req, res) => {
     const id = req.body.id;
     console.log("^^^^^^^^^^^^^^^^^^ ",req.body.params)
     console.log("***************** entered post method of /update")
@@ -89,13 +69,11 @@ app.post('/getbudgetwithuser', (req, res) => {
        })
 
 })
-app.delete('/delete/:id', (req, res) => {
+app.delete('/delete/:id',jwtMW, (req, res) => {
     const id = req.params.id;
 
     console.log("^^^^^^^^^^^^^^^^^^ ",req.params)
     console.log("***************** entered post method of /delete")
-//    let data = {username: req.body.params.username, title: req.body.params.title, budget: req.body.params.budget,color: req.body.params.color,id: req.body.id}
-//    console.log("^^^^^^^^^^^^^^^^^^^ data",data);
    mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
        useNewUrlParser:true,
        useCreateIndex : true,
@@ -108,7 +86,7 @@ app.delete('/delete/:id', (req, res) => {
        })
 
 })
- app.post('/getbudgetwithid', (req, res) => {
+ app.post('/getbudgetwithid',jwtMW, (req, res) => {
     const id = req.body.id;
     console.log("********** id",id);
     mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
@@ -123,20 +101,7 @@ app.delete('/delete/:id', (req, res) => {
         })
     })
  });
-app.get('/user', (req, res) => {
-    mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
-     useNewUrlParser:true,
-     useCreateIndex : true,
-     useUnifiedTopology: true
-    }).then(() => {
-        users.find({}).then((output) => {
-            console.log("output is ",output);
-            res.send(output);
-            mongoose.connection.close();
-        })
-    })
- });
- app.post('/register', (req, res) => {
+ app.post('/register',jwtMW, (req, res) => {
      let userdata;
      console.log("***************** entered post method of /register")
     let data = {firstName: req.body.firstName, lastName: req.body.lastName, username: req.body.username,password: req.body.password,id: req.body.id}
@@ -150,9 +115,7 @@ app.get('/user', (req, res) => {
             console.log("output is ",output);
             if(output){
                 console.log("&&&&&&&&&&&& entered");
-                // return 'Username "' + data.username + '" is already taken'
-                // return next(new Error('Username "' + data.username + '" is already taken'));
-               // return this.error('Username "' + user.username + '" is already taken')
+                //  return 'Username "' + data.username + '" is already taken'
             }
             
         }).then(()=>{
@@ -197,8 +160,6 @@ app.post('/add', jwtMW,(req, res) => {
            if(output){
                console.log("&&&&&&&&&&&& entered");
                // return 'Username "' + data.username + '" is already taken'
-               // return next(new Error('Username "' + data.username + '" is already taken'));
-              // return this.error('Username "' + user.username + '" is already taken')
            }
            
        }).then(()=>{
@@ -241,7 +202,7 @@ app.post('/login',(req,res)=>{
        }).then(() => {
            users.find({username:username,password:password}).then((output) => {
                console.log("output is ********************",output);
-               let token = jwt.sign({id:output.id,username:output.username},secretKey,{expiresIn: 120});
+               let token = jwt.sign({id:output.id,username:output.username},secretKey,{expiresIn: 10000});
             foundUser = true;
             res.json({
                 success: true,
@@ -249,16 +210,8 @@ app.post('/login',(req,res)=>{
                 user:username,
                 token
             });
-            //    res.send(output);
                mongoose.connection.close();
-           })
-        //    if (!foundUser) {
-        //     res.status(401).json({
-        //         success:false,
-        //         token:null,
-        //         err: 'Username or Password is incorrect'
-        //     });
-        // } 
+           }) 
        }) 
 
 })
@@ -277,7 +230,7 @@ app.use(function (err,req,res,next){
 });
 
 
- app.post('/budget', (req, res) => {
+ app.post('/budget',jwtMW, (req, res) => {
     let data = {id: req.body.id, title: req.body.title, budget: req.body.budget, color: req.body.color}
     mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
         useNewUrlParser:true,
@@ -296,65 +249,6 @@ app.use(function (err,req,res,next){
            })
        })
 })
-
-
-// app.post('/api/login',(req,res)=>{
-//     const {username,password} = req.body;
-//     let foundUser = false;
-//     for(let user of users) {
-//         if(username === user.username && password === user.password) {
-//             let token = jwt.sign({id:user.id,username:user.username},secretKey,{expiresIn: 180});
-//             foundUser = true;
-//             res.json({
-//                 success: true,
-//                 err:null,
-//                 token
-//             });
-//             break;
-//         }   
-//     }
-
-//     if (!foundUser) {
-//         res.status(401).json({
-//             success:false,
-//             token:null,
-//             err: 'Username or Password is incorrect'
-//         });
-//     } 
-// }); 
-
-
-// app.get('/api/dashboard',jwtMW,(req,res)=>{
-//     res.json({
-//         success:true,
-//         myContent:'Secret content that only logged in people can see.'
-//     });
-// });
-
-// app.get('/api/settings',jwtMW,(req,res)=>{
-//     res.json({
-//         success:true,
-//         myContent:'settings page *********'
-//     });
-// });
-
-// app.get('/', (req,res) => {
-//    res.sendFile(path.join(__dirname,'../personal-budget/src/app/login/login.component.html'));
-// });
-
-// app.use(function (err,req,res,next){
-//     if (err.name === 'UnauthorizedError') {
-//         res.status(401).json({
-//             success: false,
-//             officialError: err,
-//             err:'Username or password is incorrect 2'
-//         });
-//     }
-//     else {
-//         next(err);
-//     }
-// });
-
 
 
 app.listen(port,() => {

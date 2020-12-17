@@ -19,7 +19,7 @@ export class AccountService {
         private router: Router,
         private http: HttpClient
     ) {
-        // this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+        //  this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         // this.user = this.userSubject.asObservable();
     }
 
@@ -81,8 +81,11 @@ export class AccountService {
       // // this.putUserData(user);
       // // return this.ok();
       // console.log("%%%%%%%%%%%%%%%%%%%%%%%   user details to be inserted in db",user);
-
-      return this.http.post(`http://localhost:3000/register`, user);
+      const token = localStorage.getItem('jwt');
+      return this.http.post(`http://localhost:3000/register`, user,{
+        headers: {
+          'Authorization': `Bearer ${token}`
+      }});
 
     }
 
@@ -108,35 +111,59 @@ export class AccountService {
       return throwError({ error: { message } })
           .pipe(materialize(), delay(500), dematerialize()); // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648);
   }
-    getUserData(): Observable<any> {
-      // this.users = this.http.get('http://localhost:3000/user').pipe(shareReplay());
-        return this.http.get('http://localhost:3000/user');
-    }
+    // getUserData(): Observable<any> {
+    //   const token = localStorage.getItem('jwt');
+    //   // this.users = this.http.get('http://localhost:3000/user').pipe(shareReplay());
+    //     return this.http.get('http://localhost:3000/user',{
+    //       headers: {
+    //         'Authorization': `Bearer ${token}`
+    //     }});
+    // }
 
-    putUserData(user: any){
-      console.log("^^^^^^^^^^^^^^user data putting into mongo db",user);
-      return this.http.post<any>(`http://localhost:3000/user`,user);
-    }
+    // putUserData(user: any){
+    //   const token = localStorage.getItem('jwt');
+    //   console.log("^^^^^^^^^^^^^^user data putting into mongo db",user);
+    //   return this.http.post<any>(`http://localhost:3000/user`,user,{
+    //     headers: {
+    //       'Authorization': `Bearer ${token}`
+    //   }});
+    // }
 
 
     getAll(username:string) {
+      const token = localStorage.getItem('jwt');
       console.log("********** entered getall method",username)
-        return this.http.post<UserBudget[]>(`http://localhost:3000/getbudgetwithuser`,{username});
+        return this.http.post<UserBudget[]>(`http://localhost:3000/getbudgetwithuser`,{username},{
+          headers: {
+            'Authorization': `Bearer ${token}`
+        }});
     }
 
 
     getById(id: String) {
+      const token = localStorage.getItem('jwt');
       console.log("************ entered getbyid",id);
-        return this.http.post<UserBudget>(`http://localhost:3000/getbudgetwithid`,{id});
+        return this.http.post<UserBudget>(`http://localhost:3000/getbudgetwithid`,{id},{
+          headers: {
+            'Authorization': `Bearer ${token}`
+        }});
     }
 
     update(id, params,username) {
+      const token = localStorage.getItem('jwt');
       params.username = username;
-        return this.http.put(`http://localhost:3000/update`, {id,params})
+        return this.http.put(`http://localhost:3000/update`, {id,params},{
+          headers: {
+            'Authorization': `Bearer ${token}`
+        }})
     }
 
     delete(id: String) {
+      const token = localStorage.getItem('jwt');
       console.log("*********** enteres delete method")
-        return this.http.delete(`http://localhost:3000/delete/${id}`);
+        return this.http.delete(`http://localhost:3000/delete/${id}`,{
+          headers: {
+            'Authorization': `Bearer ${token}`
+        }});
     }
 }

@@ -1,43 +1,4 @@
-<!-- <head>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<mat-card>
-  <mat-card-content>
-    <div class="header">
-      <h2>LOGIN</h2>
-    </div>
-    <form (ngSubmit)="onLogin()" name="loginForm" [formGroup]="loginForm">
-      <div class="email-input">
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Email</mat-label>
-          <input formControlName="email" matInput required />
-          <mat-error *ngIf = "loginForm.get('email').errors?.required">
-            Required email address
-          </mat-error>
-        </mat-form-field>
-      </div>
 
-
-
-      <div>
-         <span class = "aLink"> Forgot password?</span>
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Password</mat-label>
-          <input formControlName="password" matInput [type]="hide ? 'password' :'text'" required />
-          <button mat-icon-button matSuffix (click)="hide = !hide"
-                  [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="hide">
-              <i class="material-icons md-16"> {{hide ? 'visibility_off' : 'visibility'}}</i>
-              </button>
-                <mat-error *ngIf="loginForm.get('password').errors?.required">
-                  Require password
-                </mat-error>
-
-        </mat-form-field>
-      </div>
-      <button mat-flat-button color="primary">Login</button>
-    </form>
-  </mat-card-content>
-</mat-card> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
 

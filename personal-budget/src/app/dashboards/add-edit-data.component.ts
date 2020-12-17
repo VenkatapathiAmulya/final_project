@@ -45,7 +45,10 @@ export class AddEditDataComponent implements OnInit {
       if (!this.isAddMode) {
           this.accountService.getById(this.id)
               .pipe(first())
-              .subscribe(x => this.form.patchValue(x));
+              .subscribe(x => {
+                console.log("*********** x = ",x[0].title);
+                 this.form.patchValue(x[0])
+              });
       }
   }
 

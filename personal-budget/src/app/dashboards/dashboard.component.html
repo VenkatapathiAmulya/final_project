@@ -18,6 +18,7 @@
             <th style="width: 30%">Title</th>
             <th style="width: 30%">Budget </th>
             <th style="width: 30%">Color</th>
+            <th style="width: 30%">Expense</th>
             <th style="width: 10%"></th>
         </tr>
     </thead>
@@ -26,6 +27,7 @@
             <td>{{userbudgetdata.title}}</td>
             <td>{{userbudgetdata.budget}}</td>
             <td>{{userbudgetdata.color}}</td>
+            <td>{{userbudgetdata.expense}}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{userbudgetdata.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
                 <button (click)="deleteData(userbudgetdata.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="userbudgetdata.isDeleting">
@@ -45,7 +47,17 @@
 
 
 
-
+<!-- <form (ngSubmit)="onSubmitMonth()">
+  <label for="months">Choose a Month:</label>
+  <select name="months" id="months">
+    <option value="Jan">Jan</option>
+    <option value="Feb">Feb</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">
+</form> -->
 
 
 <h1>Chart js- Pie chart</h1>

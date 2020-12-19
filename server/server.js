@@ -54,7 +54,7 @@ app.post('/getbudgetwithuser',jwtMW, (req, res) => {
     const id = req.body.id;
     console.log("^^^^^^^^^^^^^^^^^^ ",req.body.params)
     console.log("***************** entered post method of /update")
-   let data = {username: req.body.params.username, title: req.body.params.title, budget: req.body.params.budget,color: req.body.params.color,id: req.body.id}
+   let data = {username: req.body.params.username, title: req.body.params.title, budget: req.body.params.budget,expense : req.body.params.expense,color: req.body.params.color,id: req.body.id}
    console.log("^^^^^^^^^^^^^^^^^^^ data",data);
    mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
        useNewUrlParser:true,
@@ -101,7 +101,7 @@ app.delete('/delete/:id',jwtMW, (req, res) => {
         })
     })
  });
- app.post('/register',jwtMW, (req, res) => {
+ app.post('/register', (req, res) => {
      let userdata;
      console.log("***************** entered post method of /register")
     let data = {firstName: req.body.firstName, lastName: req.body.lastName, username: req.body.username,password: req.body.password,id: req.body.id}
@@ -145,10 +145,10 @@ app.delete('/delete/:id',jwtMW, (req, res) => {
        })
 
 })
-app.post('/add', jwtMW,(req, res) => {
+app.post('/add',(req, res) => {
     let userbudgetdata;
     console.log("***************** entered post method of /add")
-   let data = {username: req.body.username, title: req.body.title, budget: req.body.budget,color: req.body.color,id: req.body.id}
+   let data = {username: req.body.username, title: req.body.title, budget: req.body.budget,color: req.body.color,expense : req.body.expense,id: req.body.id}
    mongoose.connect('mongodb://127.0.0.1:27017/budget_database', {
        useNewUrlParser:true,
        useCreateIndex : true,
@@ -208,7 +208,8 @@ app.post('/login',(req,res)=>{
                 success: true,
                 err:null,
                 user:username,
-                token
+                token,
+                expiresIn: 10000
             });
                mongoose.connection.close();
            }) 

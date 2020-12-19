@@ -15,7 +15,7 @@ username: {
 },
 password:{
   type: String,
-    requires: true
+    required: true
 },
   id: {
     type: Number,

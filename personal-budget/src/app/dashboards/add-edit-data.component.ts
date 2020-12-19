@@ -39,6 +39,7 @@ export class AddEditDataComponent implements OnInit {
       this.form = this.formBuilder.group({
           title: ['', Validators.required],
           budget: ['', Validators.required],
+          expense: ['', Validators.required],
           color: ['', Validators.required]
       });
 

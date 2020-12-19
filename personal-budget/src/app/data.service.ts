@@ -19,7 +19,7 @@ export class DataService  {
       return this.myDataObservable;
     } else {
       const username = localStorage.getItem('user');
-      this.myDataObservable = this.http.post('http://localhost:3000/getbudgetwithuser',{username}).pipe(shareReplay());
+      this.myDataObservable = this.http.post('http://167.71.184.130:3000/getbudgetwithuser',{username}).pipe(shareReplay());
       console.log("************** mydataobservable",this.myDataObservable);
       return this.myDataObservable;
     }

@@ -29,7 +29,7 @@ export class AccountService {
 
     login(username, password) {
 
-      return this.http.post<any>(`http://localhost:3000/login`, { username, password });
+      return this.http.post<any>(`http://167.71.184.130:3000/login`, { username, password });
   //    this.getUserData().subscribe(d=> {
   //     this.users= d;
   //     console.log("****************users",this.users);
@@ -82,7 +82,7 @@ export class AccountService {
       // // return this.ok();
       // console.log("%%%%%%%%%%%%%%%%%%%%%%%   user details to be inserted in db",user);
       const token = localStorage.getItem('jwt');
-      return this.http.post(`http://localhost:3000/register`, user,{
+      return this.http.post(`http://167.71.184.130:3000/register`, user,{
         headers: {
           'Authorization': `Bearer ${token}`
       }});
@@ -94,7 +94,7 @@ export class AccountService {
       console.log("********* entered add method",userbudget)
       const token = localStorage.getItem('jwt');
 
-      return this.http.post(`http://localhost:3000/add`, userbudget,{
+      return this.http.post(`http://167.71.184.130:3000/add`, userbudget,{
       headers: {
         'Authorization': `Bearer ${token}`
     }}
@@ -133,7 +133,7 @@ export class AccountService {
     getAll(username:string) {
       const token = localStorage.getItem('jwt');
       console.log("********** entered getall method",username)
-        return this.http.post<UserBudget[]>(`http://localhost:3000/getbudgetwithuser`,{username},{
+        return this.http.post<UserBudget[]>(`http://167.71.184.130:3000/getbudgetwithuser`,{username},{
           headers: {
             'Authorization': `Bearer ${token}`
         }});
@@ -143,7 +143,7 @@ export class AccountService {
     getById(id: String) {
       const token = localStorage.getItem('jwt');
       console.log("************ entered getbyid",id);
-        return this.http.post<UserBudget>(`http://localhost:3000/getbudgetwithid`,{id},{
+        return this.http.post<UserBudget>(`http://167.71.184.130:3000/getbudgetwithid`,{id},{
           headers: {
             'Authorization': `Bearer ${token}`
         }});
@@ -152,7 +152,7 @@ export class AccountService {
     update(id, params,username) {
       const token = localStorage.getItem('jwt');
       params.username = username;
-        return this.http.put(`http://localhost:3000/update`, {id,params},{
+        return this.http.put(`http://167.71.184.130:3000/update`, {id,params},{
           headers: {
             'Authorization': `Bearer ${token}`
         }})
@@ -161,7 +161,7 @@ export class AccountService {
     delete(id: String) {
       const token = localStorage.getItem('jwt');
       console.log("*********** enteres delete method")
-        return this.http.delete(`http://localhost:3000/delete/${id}`,{
+        return this.http.delete(`http://167.71.184.130:3000/delete/${id}`,{
           headers: {
             'Authorization': `Bearer ${token}`
         }});

@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
         {
             data: [],
             backgroundColor:[],
+            expenses:[],
         }
     ],
     labels:[]
@@ -46,6 +47,7 @@ ngOnInit(): void {
         this.dataSource.datasets[0].data[i] = res[i].budget;
         this.dataSource.labels[i] = res[i].title;
         this.dataSource.datasets[0].backgroundColor[i] = res[i].color;
+        this.dataSource.datasets[0].expenses[i]= res[i].expense;
         this.createChart();
         this.barchartfunction();
 
@@ -54,12 +56,13 @@ ngOnInit(): void {
     this.createSvg();
       this.createColors();
       this.drawChart();
-
   });
 
 }
 
-
+// onSubmitMonth() {
+//   console.log("((((((");
+// }
 
 createChart() {
   var ctx = document.getElementById('myChart');
@@ -82,23 +85,24 @@ deleteData(id: String) {
 
 barchartfunction(){
   var densityData = {
-    label: 'Density of Planet (kg/m3)',
-    data: [5427, 5243, 5514, 3933, 1326, 687, 1271, 1638],
-    backgroundColor: 'rgba(0, 99, 132, 0.6)',
+    label: 'Budget',
+    data: this.dataSource.datasets[0].data,
+    backgroundColor: 'rgba(0, 55, 132, 0.6)',
     borderColor: 'rgba(0, 99, 132, 1)',
     yAxisID: "y-axis-density"
   };
 
   var gravityData = {
-    label: 'Gravity of Planet (m/s2)',
-    data: [3.7, 8.9, 9.8, 3.7, 23.1, 9.0, 8.7, 11.0],
-    backgroundColor: 'rgba(99, 132, 0, 0.6)',
+    label: 'Expense',
+    data: this.dataSource.datasets[0].expenses,
+    backgroundColor: 'rgba(99, 55, 0, 0.6)',
     borderColor: 'rgba(99, 132, 0, 1)',
     yAxisID: "y-axis-gravity"
   };
 
   var planetData = {
-    labels: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"],
+    //  labels: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"],
+    labels: this.dataSource.labels,
     datasets: [densityData, gravityData]
   };
 

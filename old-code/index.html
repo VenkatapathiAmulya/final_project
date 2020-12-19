@@ -289,7 +289,7 @@ function change(data) {
             });
         }
         function getBudget() {
-            axios.get('http://localhost:3000/budget')
+            axios.get('http://167.71.184.130:3000/budget')
             .then((res)=>{
                 console.log(res.data);
                 for(var i=0;i<res.data.myBudget.length;i++) {

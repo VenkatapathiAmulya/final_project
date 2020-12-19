@@ -17,6 +17,13 @@
             </div>
         </div>
         <div class="form-group col">
+          <label for="expense">expense</label>
+          <input type="text" formControlName="expense" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.expense.errors }" />
+          <div *ngIf="submitted && f.expense.errors" class="invalid-feedback">
+              <div *ngIf="f.expense.errors.required">expense is required</div>
+          </div>
+      </div>
+        <div class="form-group col">
             <label for="color">Color</label>
             <input type="text" formControlName="color" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.color.errors }" />
             <div *ngIf="submitted && f.color.errors" class="invalid-feedback">

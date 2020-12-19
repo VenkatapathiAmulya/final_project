@@ -17,6 +17,10 @@ const schema = mongoose.Schema({
         type: Number,
         required: true
     },
+    expense:{
+        type: String,
+        required: true
+      },
     color: {
         type: String,
         required: true,

@@ -4,4 +4,5 @@ export class UserBudget {
   title: string;
   budget: string;
   color: string;
+  expense: string
 }

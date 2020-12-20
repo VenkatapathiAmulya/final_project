@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\vamul\dev\final_project\final_project\personal-budget\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! C:\Users\vamul\dev\final_project\final_project\src\main.ts */"zUnb");
 
 
 /***/ }),
@@ -1650,7 +1650,8 @@ __webpack_require__.r(__webpack_exports__);
 const environment = {
     production: false,
     //  apiUrl: 'http://167.71.184.130:3000'
-    apiUrl: 'http://localhost:3000'
+    //  apiUrl: 'http://localhost:3000'
+    apiUrl: 'https://amulyapersonalbudget.herokuapp.com'
 };
 /*
  * For easier debugging in development mode, you can import the following file
